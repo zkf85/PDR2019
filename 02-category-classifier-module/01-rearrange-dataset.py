@@ -1,10 +1,9 @@
 # 2019/03/09
 # rearrange dataset_for_keras and make a copy
-
 import os
 import json
 import shutil
-import ..kfutils
+import utils
 
 #===============================================================================
 # 1. paths

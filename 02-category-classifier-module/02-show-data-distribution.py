@@ -1,11 +1,9 @@
 # 2019/03/11
 # Show data distribution of categorical plan disease data
-import sys
-sys.path.append('..')
 import os
 import json
-from kfutils import is_image_file, plot_distribution
-from kfutils import category_zh_dict as cat_dict
+from utils import is_image_file, plot_distribution
+from utils import category_zh_dict as cat_dict
 #===============================================================================
 # 1. paths
 #===============================================================================
@@ -30,7 +28,8 @@ for subdir in subdirs:
     # Plot data distributions
     cats_zh = [cat_dict[i] for i in cats]
     print(cats_zh)
-    title = 'Data Distribution - %s' % subdir.capitalize()
-    filename = '02-data-distribution-%s.eps' % subdir
+    title = '作物图片样本分布 - %s' % subdir.capitalize()
+    #filename = '02-data-distribution-%s.eps' % subdir  # problem rendering chinese in eps mode
+    filename = '02-data-distribution-%s.png' % subdir
     plot_distribution(cats_zh, counts, label=subdir, title= title, filename=filename)
     

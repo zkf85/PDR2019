@@ -89,3 +89,13 @@ kefeng@aizhong-ubuntu-server:
 
 ## 2. 数据分析
 ### 2.1. 按类别的数据分布（共10类）
+脚本：`02-data-distribution.py`
+
+![](02-data-distribution-concat.png)
+![](02-data-distribution-train.png)
+![](02-data-distribution-val.png)
+
+### 2.2. 数据增强（Data Augmentation）
+考虑效率问题，目前直接使用Keras的实时图像增强。
+
+## 3. 模型、训练
