@@ -4,7 +4,7 @@
 import os
 import json
 import shutil
-import kfutils
+import ..kfutils
 
 #===============================================================================
 # 1. paths
@@ -16,7 +16,7 @@ label_json = '../label_to_disease_full.json'
 #===============================================================================
 # Create directory for the new copy of dataset
 #===============================================================================
-dist_dir = os.path.join(base_dir, 'dataset_plant_categorial')
+dist_dir = os.path.join(base_dir, 'dataset_plant_categorical')
 if not os.path.exists(dist_dir):
     os.mkdir(dist_dir)
 
