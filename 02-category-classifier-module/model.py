@@ -4,8 +4,8 @@
 # Finetune Models
 from tensorflow.keras import models
 from tensorflow.keras import layers
-#from tensorflow.keras.applications import VGG16
-#from tensorflow.keras.applications import VGG19
+from tensorflow.keras.applications import VGG16
+from tensorflow.keras.applications import VGG19
 from tensorflow.keras.applications import InceptionResNetV2 
 from tensorflow.keras.applications import InceptionV3
 from tensorflow.keras.applications import ResNet50
@@ -43,9 +43,10 @@ def build_model(model_name, img_size, num_classes):
     model.add(conv)
 
     # Add top layers
+    fc_size = 256
     model.add(layers.Flatten())
     model.add(layers.BatchNormalization())
-    model.add(layers.Dense(1024, activation='relu'))
+    model.add(layers.Dense(fc_size, activation='relu'))
     model.add(layers.Dropout(0.5))
     model.add(layers.Dense(num_classes, activation='softmax'))
 
@@ -53,10 +54,6 @@ def build_model(model_name, img_size, num_classes):
 
 
 if (__name__ == "__main__"):
-    print('-'*80)
     print('[KF INFO] Test models.py')
-    print('-'*80)
-
     model = build_model('ResNet50', 224, 10)
-    
     model.summary()
