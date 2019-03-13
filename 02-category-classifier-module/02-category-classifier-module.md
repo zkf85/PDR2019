@@ -108,10 +108,29 @@ kefeng@aizhong-ubuntu-server:
 ├── config.py       # parameters and paths
 ├── util.py         $ utility functions
 ```
-### 3.1. 训练脚本完成，开始第一轮训练：
+### 3.1.模型1
 *(2019/03/12)*
 模型文件夹：`20190312-model-InceptionResNetV2-epochs-20-batchsize-8`
 模型指标：
 - 模型大小: 915M
-- train_acc:
-- val_acc: 
+- train_acc: 95.68%
+- val_acc: 98.83%
+
+
+| ![](plots/20190312-plt-acc-loss.png) | ![](plots/20190312-plt-lr.png) |
+| :-: | :-: |
+|  训练损失函数和准确率 | 学习率 |
+
+### 3.2. 模型2
+*(2019/03/13)*
+模型文件夹：`/20190313-model-VGG16-epochs-20-batchsize-8`
+模型指标：
+- 模型大小: 243M
+- train_acc: 96.67%
+- val_acc: 98.28%
+
+
+| ![](plots/20190313-plt-acc-loss.eps) | ![](plots/20190313-plt-lr.eps) |
+| :-: | :-: |
+|  训练损失函数和准确率 | 学习率 |
+

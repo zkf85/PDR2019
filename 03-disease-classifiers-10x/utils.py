@@ -1,13 +1,17 @@
-# Created by KF 
-# 2019/03/08
-# Utility Methods 
+"""
+Filename: utils.py 
+Created on Wed Mar 13 13:40:25 CST 2019
+
+@author: Kefeng Zhu (zkf1985@gmail.com, zkf85@163.com)
+
+Description:
+  Utility functions for 03-disease-classifiers-10x
+
+"""
 import os
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-#plt.rcParams['font.sans-serif'] = ['SimHei']    # 正常显示标签
-#plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']    # 正常显示标签
-#plt.rcParams['axes.unicode_minus'] = False      # 正常显示负号
 import numpy as np
 
 # Added by KF 2019/03/11
@@ -38,7 +42,7 @@ def is_image_file(path):
         True if it's a valid image file.
     """
     valid_img_suffix = ('jpg', 'jpeg', 'png')
-    if path.rsplit('.', 1)[1].lower() in valid_img_suffix:
+    if path.rsplit('.', 1)[1].lower() in valid_img_suffix and not path.startswith('.'):
         return True
     else:
         print("%s is not a valid image file" % path)
@@ -93,7 +97,7 @@ def print_title(title, f=None):
 # Plot valloss, loss, val_acc and acc in 
 # Added by KF 2019/03/12
 #===============================================================================
-def plot_loss_acc(history, save_dir):
+def plot_loss_acc(history, save_dir, plt_name='plt-acc-loss'):
     """
     Arguments:
         history: (dict) H.history where H is the return of model.fit()
@@ -121,7 +125,7 @@ def plot_loss_acc(history, save_dir):
     labels = [i.get_label() for i in l]
     plt.legend(l, labels, loc='center right')
     plt.title("Training Loss and Accuracy")
-    plt_name = 'plt-acc-loss.eps'
+    plt_name += '.eps'
     plt.savefig(os.path.join(save_dir, plt_name), format='eps', dpi=1000)
     print("[KF INFO] Loss and acc history is plotted!")
 
@@ -129,7 +133,7 @@ def plot_loss_acc(history, save_dir):
 # Plot Learning Rate`
 # Added by KF 2019/03/12
 #===============================================================================
-def plot_lr(history, save_dir):
+def plot_lr(history, save_dir, plt_name='plt-lr'):
     """
     Arguments:
         history: (dict) H.history where H is the return of model.fit()
@@ -143,7 +147,7 @@ def plot_lr(history, save_dir):
     plt.ylabel('Learning Rate')
     plt.grid()
     plt.title("Learning Rate")
-    plt_name = 'plt-lr.eps'
+    plt_name += '.eps'
     plt.savefig(os.path.join(save_dir, plt_name), format='eps', dpi=1000)
     print("[KF INFO] learning rate history is plotted!")
 
@@ -157,7 +161,7 @@ if (__name__ == "__main__"):
     # Test 'is_image_file'
     #print("[KF INFO] Test is_image_file()")
     #print("-"*80)
-    #li = ['abcd.JPG', 'cbd.jpeg', '.DSTORE', 'bd3e.png']
+    #li = ['._abcd.JPG', 'cbd.jpeg', '.DSTORE', 'bd3e.png']
     #for f in li:
     #    print(is_image_file(f))
 
@@ -170,18 +174,19 @@ if (__name__ == "__main__"):
     # Test Passed! - KF 2019/03/11
 
     # Test 'plot_distribution'
-    #h = {}
-    #h['loss'] = np.array([4,3,2,1,0.5])
-    #h['val_loss'] = np.array([4,3,2,1,0.5])*0.9
-    #h['acc'] = np.array([50, 60, 70, 80, 90])*.01
-    #h['val_acc'] = (np.array([50, 60, 70, 80, 90]) - 3)*.01
-    #h['lr'] = np.array([1e-4, 1e-4, 5e-5, 5e-5, 2.5e-5])
-    #print(h)
-    #plot_loss_acc(h, '.')
-    #plot_lr(h, '.')
+    h = {}
+    h['loss'] = np.array([4,3,2,1,0.5])
+    h['val_loss'] = np.array([4,3,2,1,0.5])*0.9
+    h['acc'] = np.array([50, 60, 70, 80, 90])*.01
+    h['val_acc'] = (np.array([50, 60, 70, 80, 90]) - 3)*.01
+    h['lr'] = np.array([1e-4, 1e-4, 5e-5, 5e-5, 2.5e-5])
+    print(h)
+    plot_loss_acc(h, '.', 'abcd')
+    plot_lr(h, '.', 'efg')
 
     # test print_title with argument 'f'
     # with open('try.txt', 'a') as f:
     #    print_title("HEllo world!", f=f)
     # Test Passed!
     
+

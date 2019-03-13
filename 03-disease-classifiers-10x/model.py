@@ -1,7 +1,12 @@
-# Created by KF
-# 2019/03/11
+"""
+Filename: model.py
+Created on Wed Mar 13 16:19:02 CST 2019
 
-# Finetune Models
+@author: Kefeng Zhu (zkf1985@gmail.com, zkf85@163.com)
+
+Description:
+
+"""
 from tensorflow.keras import models
 from tensorflow.keras import layers
 from tensorflow.keras.applications import VGG16
@@ -57,3 +62,4 @@ if (__name__ == "__main__"):
     print('[KF INFO] Test models.py')
     model = build_model('ResNet50', 224, 10)
     model.summary()
+

@@ -15,103 +15,58 @@
     3. 模型性能分析。
 
 ## 1. 数据整理
-### 1.1. 数据集
-原始数据集存储路径：
-```
-kefeng@aizhong-ubuntu-server:
-~/data_pool/plant_disease_dataset
-├── 299_dataset_for_keras
-├── dataset
-└── dataset_for_keras
-```
-- `299_dataset_for_keras` 为尺寸统一为299x299的按61类整理的数据；
-- `dataset`为原始数据；
-- `dataset_for_keras`为原始尺寸的按61类整理的数据。
+*(2019/03/13)*
+### 1.1. 生成类别-标签对应表
+脚本：`01-generate-category-to-folders-dict.py`
+输出文件：`cat-to-folders.json`
 
-这些数据是2018年11月初参与竞赛时所整理。当前项目的数据整理，同样使用`dataset_for_keras`的数据作为初始数据。
+### 1.2. 重新整理、拷贝数据集
+> **为什么？**
+> 
+> 因为用keras的flow_from_directory的时候，会自动将目录下的所有文件夹默认识别为各个类别标签。所以要按照不同作物类别将原始数据集重新分类。
 
-### 1.2. 将数据按照作物类别整理成为新的副本
-**目标：**
-- 将原始数据集文件夹（"0", "1", ...)按照所属类别进行整理，目标文件夹拓扑如下：
+脚本：`02-rearrange-and-copy-dataset.py`
+输入：上一个脚本的生成文件`cat-to-folders.json`
+输出：整理后的新数据集文件夹位置及拓扑：
 ```
-~/data_pool/plant_disease_dataset/dataset_plant_disease_10x
-
-```
-
-**程序脚本：**
-- `01-rearrange-dataset.py` 主脚本
-- `kfutils.py` 功能函数
-
-处理完成后的数据文件夹结构：
-```
-~/data_pool/plant_disease_dataset/dataset_plant_categorial                                                   
-├── concat
-│   ├── apple
-│   ├── cherry
-│   ├── citrus
-│   ├── corn
-│   ├── grape
-│   ├── peach
-│   ├── pepper
-│   ├── potato
-│   ├── strawberry
-│   └── tomato
-├── train
-│   ├── apple
-│   ├── cherry
-│   ├── citrus
-│   ├── corn
-│   ├── grape
-│   ├── peach
-│   ├── pepper
-│   ├── potato
-│   ├── strawberry
-│   └── tomato
-└── val
-    ├── apple
-    ├── cherry
-    ├── citrus
-    ├── corn
-    ├── grape
-    ├── peach
-    ├── pepper
-    ├── potato
-    ├── strawberry
-    └── tomato
+/home/kefeng/data_pool/plant_disease_dataset/dataset_for_10x_classifiers/
+├── apple
+│   ├── concat
+│   │   ├── 0
+│   │   ├── 1
+│   │   ├── 2
+│   │   ├── 3
+│   │   ├── 4
+│   │   └── 5
+│   ├── train
+│   │   ├── 0
+│   │   ├── 1
+│   │   ├── 2
+│   │   ├── 3
+│   │   ├── 4
+│   │   └── 5
+│   └── val
+│       ├── 0
+│       ├── 1
+│       ├── 2
+│       ├── 3
+│       ├── 4
+│       └── 5
+├── cherry
+│   ├── concat
+│   │   ├── 6
+│   │   ├── 7
+│   │   └── 8
+│   ├── train
+│   │   ├── 6
+│   │   ├── 7
+│   │   └── 8
+│   └── val
+│       ├── 6
+│       ├── 7
+│       └── 8
+...
 ```
 
-***【完成 2019/03/08】***
-
-### 1.3. 训练集、验证集划分
-本部分已经在`01-rearrange-dataset.py`中同时完成。
-数据概览：
-- 总图片数：36258
-- 训练集图片数：31718
-- 验证集图片数：4540
-
-## 2. 数据分析
-### 2.1. 按类别的数据分布（共10类）
-脚本：`02-data-distribution.py`
-
-![](02-data-distribution-concat.png)
-![](02-data-distribution-train.png)
-![](02-data-distribution-val.png)
-
-### 2.2. 数据增强（Data Augmentation）
-考虑效率问题，目前直接使用Keras的实时图像增强。
-
-## 3. 模型、训练
-*(2019/03/11)*
-脚本：
-```
-~/2019-PlantDiseaseRecognition-v2/02-category-classifier-module/
-├── 03-train.py     # main entry
-├── model.py        # model
-├── config.py       # parameters and paths
-```
-### 3.1. 训练脚本完成，开始第一轮训练：
-*(2019/03/12)*
-模型文件夹：`20190312-model-InceptionResNetV2-epochs-20-batchsize-8`
-模型指标：
-- train_acc:
-- val_acc: 
+## 2. 模型训练
+### 2.1. 苹果（apple）
