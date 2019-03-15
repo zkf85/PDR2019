@@ -15,6 +15,7 @@ Description:
 import os
 import json
 from shutil import copytree
+
 with open('cat-to-folders.json', 'r') as f:
     dic = json.load(f)
 

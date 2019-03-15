@@ -2,6 +2,9 @@
 # Show data distribution of categorical plan disease data
 import os
 import json
+imort sys
+sys.path.append('..')
+
 from utils import is_image_file, plot_distribution
 from utils import category_zh_dict as cat_dict
 #===============================================================================

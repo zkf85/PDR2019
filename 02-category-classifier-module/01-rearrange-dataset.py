@@ -3,6 +3,9 @@
 import os
 import json
 import shutil
+import sys
+sys.path.append('..')
+
 import utils
 
 #===============================================================================
@@ -51,7 +54,7 @@ for subname in subnames:
             os.mkdir(dist_subsubdir)
         
         for f in os.listdir(source_subsubdir):
-            if kfutils.is_image_file(f):
+            if utils.is_image_file(f):
                 s = os.path.join(source_subsubdir, f)
                 d = os.path.join(dist_subsubdir, f)
                 shutil.copy(s, d)

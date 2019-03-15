@@ -17,7 +17,12 @@
 ## 1. 数据整理
 *(2019/03/13)*
 ### 1.1. 生成类别-标签对应表
-脚本：`01-generate-category-to-folders-dict.py`
+脚本：
+```
+03-disease-classifiers-10x/
+└── 01-generate-category-to-folders-dict.py
+```
+
 输出文件：`cat-to-folders.json`
 
 ### 1.2. 重新整理、拷贝数据集
@@ -69,4 +74,53 @@
 ```
 
 ## 2. 模型训练
-### 2.1. 苹果（apple）
+### 2.1. 模型训练脚本：
+```
+2019-PlantDiseaseRecognition-v2/
+├── utils.py            # 常用功能函数
+├── model.py            # 构建模型函数
+└── 03-disease-classifiers-10x/     
+    ├── 03-train-children.py    # 训练主程
+    └── config.py               # 参数文件
+```
+
+#### TODO (2019/03/14)
+将参数与python脚本彻底分离，拟采用json文件存储参数
+
+### 2.2. 训练结果与分析
+#### 2.2.1. VGG16 (10个模型)
+*(2019/03/14)*
+### 统一训练参数：
+```
+Model Name       : VGG16
+Image Shape      : (224, 224, 3)
+--------------------------------------------------------------------------------
+Train Size       : 11476
+Validation Size  : 1639
+--------------------------------------------------------------------------------
+Epochs           : 50
+Batch Size       : 16
+Initial LR       : 0.0001
+Early Stopping Patience  : 20
+LR Reduce Patience       : 8
+```
+### 模型准确率与损失函数：
+| ![](plots/20190313-apple-plt-acc-loss.eps) | ![](plots/20190313-cherry-plt-acc-loss.eps) |
+| :-: | :-: |
+| 苹果: 94.74% | 樱桃: 99.11% |
+
+| ![](plots/20190313-citrus-plt-acc-loss.eps) | ![](plots/20190313-corn-plt-acc-loss.eps) |
+| :-: | :-: |
+| 桔子: 75.00% | 玉米: 87.73% |
+
+| ![](plots/20190313-grape-plt-acc-loss.eps) | ![](plots/20190313-peach-plt-acc-loss.eps) |
+| :-: | :-: |
+| 葡萄: 86.98% | 桃子: 90.62% |
+
+| ![](plots/20190313-pepper-plt-acc-loss.eps) | ![](plots/20190313-potato-plt-acc-loss.eps) |
+| :-: | :-: |
+| 辣椒: 95.00% | 土豆: 85.11% |
+
+| ![](plots/20190314-strawberry-plt-acc-loss.eps) | ![](plots/20190314-tomato-plt-acc-loss.eps) |
+| :-: | :-: |
+| 草莓: 93.75% | 番茄: 85.11% |
